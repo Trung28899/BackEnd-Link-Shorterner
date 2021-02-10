@@ -1,21 +1,12 @@
 import { validateUser } from "../util/helper.js";
 import Auth from "../models/authModel.js";
 
-const loginController = (req, res, next) => {
-  const passwordValidated = validateUser(req.body.password);
-  console.log(req.body.password);
-  if (passwordValidated) {
-    res.json({ validated: true });
-  } else {
-    res.json({ validated: false });
-  }
-};
-
+/*
+  C in CRUD
+*/
 const createPassword = async (req, res, next) => {
   const password = req.body.password;
-  console.log(password);
   const newAuth = new Auth({ password: password });
-  console.log(newAuth);
   try {
     await newAuth.save();
     res.status(201).json(newAuth);
@@ -24,4 +15,21 @@ const createPassword = async (req, res, next) => {
   }
 };
 
-export { loginController, createPassword };
+/*
+  R in CRUD
+*/
+const getPassword = async (req, res, next) => {
+  const password = req.body.password;
+  try {
+    const authData = await Auth.find({ password: password });
+    if (authData.length === 0) {
+      res.json({ validated: false });
+    } else {
+      res.json({ validated: true });
+    }
+  } catch (err) {
+    res.status(409).json({ message: err.message });
+  }
+};
+
+export { createPassword, getPassword };
