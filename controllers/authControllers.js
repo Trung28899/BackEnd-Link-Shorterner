@@ -32,4 +32,28 @@ const getPassword = async (req, res, next) => {
   }
 };
 
-export { createPassword, getPassword };
+/*
+  U in CRUD
+*/
+const updatePassword = async (req, res, next) => {
+  const { newPassword } = req.body;
+  const { currentPassword } = req.params;
+  try {
+    const authData = await Auth.find({ password: currentPassword });
+    if (authData.length > 0) {
+      const id = authData[0]._id;
+      await Auth.findByIdAndUpdate(
+        id,
+        { password: newPassword },
+        { new: true, useFindAndModify: false }
+      );
+      res.json({ passwordUpdated: true });
+    } else {
+      res.json({ passwordUpdated: false });
+    }
+  } catch (err) {
+    res.status(409).json({ message: err.message });
+  }
+};
+
+export { createPassword, getPassword, updatePassword };
