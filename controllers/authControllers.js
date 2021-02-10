@@ -56,4 +56,23 @@ const updatePassword = async (req, res, next) => {
   }
 };
 
-export { createPassword, getPassword, updatePassword };
+/*
+  D in CRUD
+*/
+const deletePassword = async (req, res, next) => {
+  const { password } = req.params;
+  try {
+    const authData = await Auth.find({ password: password });
+    if (authData.length > 0) {
+      const id = authData[0]._id;
+      await Auth.findByIdAndRemove(id);
+      res.json({ passwordDeleted: true });
+    } else {
+      res.json({ passwordDeleted: false });
+    }
+  } catch (err) {
+    res.status(409).json({ message: err.message });
+  }
+};
+
+export { createPassword, getPassword, updatePassword, deletePassword };
