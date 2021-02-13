@@ -1,4 +1,3 @@
-import { validateUser } from "../util/helper.js";
 import Auth from "../models/authModel.js";
 
 /*
