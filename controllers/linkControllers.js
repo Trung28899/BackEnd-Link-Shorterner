@@ -3,7 +3,7 @@ import Link from "../models/linkModel.js";
 const createLink = async (req, res, next) => {
   const { accessName, redirectLink } = req.body;
   try {
-    const linkRecord = await Link.findById(accessName);
+    const linkRecord = await Link.find({ accessName: accessName });
     if (linkRecord.length === 0) {
       const newLink = new Link({
         accessName: accessName,
@@ -23,7 +23,6 @@ const fetchLink = async (req, res, next) => {
   const { accessName } = req.params;
   try {
     const linkRecord = await Link.find({ accessName: accessName });
-    console.log(linkRecord[0].redirectLink);
     if (linkRecord.length > 0) {
       res.json({ redirectLink: linkRecord[0].redirectLink, error: false });
     } else {

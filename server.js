@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import linkRoutes from "./routes/linkRoutes.js";
+import fetchRoute from "./routes/fetchRoute.js";
 import mongoose from "mongoose";
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 
 app.use("/auth", authRoutes);
 app.use("/link", linkRoutes);
+app.use("/", fetchRoute);
 
 const CONNECTION_URL =
   "mongodb+srv://trung:trungtrinh38@commerceshopcluster.eskab.mongodb.net/linkshort";
