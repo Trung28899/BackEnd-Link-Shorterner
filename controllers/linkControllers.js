@@ -33,4 +33,8 @@ const fetchLink = async (req, res, next) => {
   }
 };
 
-export { createLink, fetchLink };
+const getMainPage = async (req, res, next) => {
+  res.json({ message: "This is the main Page !!" });
+};
+
+export { createLink, fetchLink, getMainPage };
