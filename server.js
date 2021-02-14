@@ -23,7 +23,7 @@ app.use("/", fetchRoute);
 
 const CONNECTION_URL =
   "mongodb+srv://trung:trungtrinh38@commerceshopcluster.eskab.mongodb.net/linkshort";
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 443;
 
 mongoose
   .connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
