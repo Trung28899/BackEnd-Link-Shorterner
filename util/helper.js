@@ -8,6 +8,8 @@ export const validateUser = (password) => {
       return true;
     case "otcmember":
       return true;
+    case "trung":
+      return true;
     default:
       return false;
   }
